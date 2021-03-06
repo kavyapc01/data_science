@@ -13,8 +13,7 @@ def trend_indicator(data):
     df1 = pd.pivot_table(data, values='VOL_SQCM', index=pd.to_datetime(data['PERIOD']).dt.to_period("M") ,columns=['PUBLICATION'],aggfunc='sum')
     dd_p1 = df1.get('PLAYER 1').tolist()
     dd_p2 = df1.get('PLAYER 2').tolist()
-##    print(df1)
-##    print(dd_p2)
+
     dt=pd.PeriodIndex(df1.index, freq='M').to_timestamp()
     x=mdates.date2num(dt)
 
@@ -40,7 +39,6 @@ def trend_indicator(data):
         slope_p2 = "upward"
     else:
         slope_p2 = "0"
-
 
     fig, axes = plt.subplots(nrows=2, ncols=1)
     
@@ -71,8 +69,6 @@ def best_supercategory_advertiser(data,n=5):
     g = super_cat['VOL_SQCM'].groupby('PUBLICATION', group_keys=False)
     res = g.apply(lambda x: x.sort_values(ascending=False).head(n))
     res.plot(ax=axes[0],kind='barh',title="5 best super category for each player")
-##    plt.xticks(fontsize=6,rotation='vertical')
-##    plt.yticks(fontsize=6)
     
     ##5 best advertisers for each player
     advertiser = data.groupby([data['PUBLICATION'],data['ADVERTISER']]).agg({'VOL_SQCM':sum})

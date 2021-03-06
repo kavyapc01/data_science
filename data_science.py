@@ -7,7 +7,6 @@ import pandas as pd
 
 def trend_analysis(x,data,order=8):
     coeffs = np.polyfit(list(x),list(data), order)
-    slope = coeffs[-2]
     return coeffs
 
 def trend_indicator(data):
